@@ -1,0 +1,29 @@
+name: onyx-40-loc-distributed-chat
+version: 1.0.0
+
+description:
+  "A 40-LoC example of a distributed websocket chat build with \
+  [Onyx Framework](https://onyxframework.org). Read the blogpost at \
+  https://blog.onyxframework.org/posts/distributed-websocket-chat-in-40-loc"
+
+authors:
+  - Vlad Faust <mail@vladfaust.com>
+
+targets:
+  server:
+    main: src/server.cr
+
+crystal: 0.27.2
+
+license: MIT
+
+dependencies:
+  onyx:
+    github: onyxframework/onyx
+    version: ~> 0.3.0
+  onyx-http:
+    github: onyxframework/http
+    version: ~> 0.7.0
+  onyx-eda:
+    github: onyxframework/eda
+    version: ~> 0.2.0
