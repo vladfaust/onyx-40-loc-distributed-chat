@@ -1,7 +1,5 @@
 require "onyx/http"
-require "onyx/eda"
-
-Onyx.channel(:redis) # You'll need REDIS_URL variable to be set
+require "onyx/eda/redis" # This requires REDIS_URL environment variable
 
 struct Message
   include Onyx::EDA::Event
@@ -21,20 +19,22 @@ class Chat
     end
   end
 
+  getter! sub : Onyx::EDA::Channel::Subscription(Message)
+
   def on_open
-    Onyx.subscribe(self, Message) do |message|
+    @sub = Onyx::EDA.redis.subscribe(Message) do |message|
       socket.send("#{message.username}: #{message.content}")
     end
   end
 
   def on_message(message)
-    Onyx.emit(Message.new(params.query.username, message))
+    Onyx::EDA.redis.emit(Message.new(params.query.username, message))
   end
 
   def on_close
-    Onyx.unsubscribe(self)
+    sub.unsubscribe
   end
 end
 
-Onyx.ws "/", Chat
-Onyx.listen(port: ENV["PORT"].to_i) # You'll also need PORT variable
+Onyx::HTTP.ws "/", Chat
+Onyx::HTTP.listen(port: ENV["PORT"].to_i) # You'll also need PORT variable to be set

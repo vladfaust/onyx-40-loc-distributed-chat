@@ -22,7 +22,7 @@ shards:
 
   mini_redis:
     github: vladfaust/mini_redis
-    version: 0.1.1
+    version: 0.2.0
 
   msgpack:
     github: crystal-community/msgpack-crystal
@@ -30,15 +30,15 @@ shards:
 
   onyx:
     github: onyxframework/onyx
-    version: 0.3.0
+    version: 0.4.0
 
   onyx-eda:
     github: onyxframework/eda
-    version: 0.2.0
+    version: 0.3.0
 
   onyx-http:
     github: onyxframework/http
-    version: 0.7.0
+    version: 0.8.0
 
   radix:
     github: luislavena/radix

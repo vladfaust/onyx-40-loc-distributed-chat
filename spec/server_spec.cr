@@ -1,34 +1,20 @@
-require "./spec_helper"
-require "http/web_socket"
-
 ENV["PORT"] ||= "4890"
 
-alice_message = nil
-
-spawn do
-  sleep(1)
-
-  alice_socket = HTTP::WebSocket.new(URI.parse("http://localhost:#{ENV["PORT"]}?username=Alice"))
-  alice_socket.on_message do |message|
-    alice_message = message
-  end
-
-  spawn alice_socket.run
-
-  bob_socket = HTTP::WebSocket.new(URI.parse("http://localhost:#{ENV["PORT"]}?username=Bob"))
-  spawn bob_socket.run
-
-  bob_socket.send("Hi")
-end
-
-spawn do
-  sleep(2)
-
-  it "works" do
-    alice_message.should eq "Bob: Hi"
-  end
-
-  exit
-end
-
+require "spec"
+require "onyx/http/spec"
 require "../src/server"
+
+describe "server" do
+  alice_socket = Onyx::HTTP::Spec.ws("/?username=Alice")
+  bob_socket = Onyx::HTTP::Spec.ws("/?username=Bob")
+
+  it do
+    bob_socket.send("Hello")
+    alice_socket.assert_response("Bob: Hello")
+  end
+
+  it do
+    alice_socket.send("Hi")
+    bob_socket.assert_response("Alice: Hi")
+  end
+end
