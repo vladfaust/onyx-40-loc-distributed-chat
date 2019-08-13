@@ -14,7 +14,7 @@ shards:
 
   http-params-serializable:
     github: vladfaust/http-params-serializable
-    version: 0.3.0
+    version: 0.4.0
 
   kilt:
     github: jeromegn/kilt
@@ -22,7 +22,7 @@ shards:
 
   mini_redis:
     github: vladfaust/mini_redis
-    version: 0.2.0
+    version: 0.2.3
 
   msgpack:
     github: crystal-community/msgpack-crystal
@@ -30,15 +30,15 @@ shards:
 
   onyx:
     github: onyxframework/onyx
-    version: 0.4.0
+    version: 0.6.1
 
   onyx-eda:
     github: onyxframework/eda
-    version: 0.3.0
+    version: 0.4.0
 
   onyx-http:
     github: onyxframework/http
-    version: 0.8.0
+    version: 0.9.0
 
   radix:
     github: luislavena/radix
